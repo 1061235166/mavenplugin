@@ -68,8 +68,17 @@ public class MyMojo extends AbstractMojo
                 if(nextJarEntry==null){
                     break;
                 }
-                jarOutputStream.putNextEntry(nextJarEntry);
-                IOUtil.copy(jarInputStream,jarOutputStream);
+                if(i==0){
+                    JarEntry jarEntry = new JarEntry("ajsdkjkasd.txt");
+                    FileInputStream fileInputStream = new FileInputStream(new File("d://ex.txt"));
+                    jarOutputStream.putNextEntry(jarEntry);
+                    IOUtil.copy(fileInputStream,jarOutputStream);
+                    fileInputStream.close();
+                }else {
+                    jarOutputStream.putNextEntry(nextJarEntry);
+                    IOUtil.copy(jarInputStream,jarOutputStream);
+                }
+                i++;
             }
             jarInputStream.close();
             jarOutputStream.close();
